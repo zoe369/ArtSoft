@@ -9,7 +9,7 @@
 		type: "POST",
 		url: "/Home/InsertFields/",
 		datatype: "json",
-		contentType: "application/json: charset=utf-8",
+		contentType: "application/json; charset=utf-8",
 		data: JSON.stringify({ FirstName: FirstName, LastName: LastName, Mobno: Mobno, Adress: Adress }),
 		success: function (json1) {
 			ViewData1();
@@ -29,32 +29,24 @@ $(document).ready(function () {
 			type: "POST",
 			url: '/Home/ViewData1/',
 			dataType: "json",
-			contentType: "application/json: charset=utf-8",
-			data: JSON.stringify({}),
-			succes: function (json1) {
-				console.log(json1);
-				var tableload = json1.html;
-				var dataset = eval("[" + tableload + "]");
-				$('#ViewValues').DataTable({
-					ordering: false,
-					data: dataset,
-					columns: [
-						{ title: "ID" },
-						{ title: "First Name" },
-						{ title: "Last Name" },
-						{ title: "Mobile Number" },
-						{ title: "Adress" },
-						{ title: "Action"},
-					]
-				});
-
-			},
-			error: function (err) {
-				console.log(err);
-            },
-			failure: function (errMsg) {
-				alert(errMsg);
-			}
+			contentType: "application/json; charset=utf-8",
+			data: JSON.stringify({})
+			
+		}).done(function (json1) {
+			console.log(json1);
+			var tableload = json1.html;
+			$('#tblCRUD').DataTable({
+				ordering: false,
+				data: tableload,
+				columns: [
+					{ title: "ID" },
+					{ title: "First Name" },
+					{ title: "Last Name" },
+					{ title: "Mobile Number" },
+					{ title: "Adress" },
+					{ title: "Action" },
+				]
+			});
 		});
 	}
 });
@@ -65,7 +57,7 @@ function fnDelete(id) {
 		type: "POST",
 		url: '/Home/DeleteData/',
 		datatype: "json",
-		contentType: "application/json: charset=utf-8",
+		contentType: "application/json; charset=utf-8",
 		data: JSON.stringify({ id: id }),
 		success: function (json) {
 			window.location.replace("/Home/Index/");
@@ -81,7 +73,7 @@ function fnEdit(id) {
 		type: "POST",
 		url: '/Home/EditData/',
 		datatype: "json",
-		contentType: "application/json: charset=utf-8",
+		contentType: "application/json; charset=utf-8",
 		data: JSON.stringify({ id: id }),
 		success: function (json) {
 			var arrval = json.htmlValues;
@@ -114,7 +106,7 @@ function fnUpdate() {
 		type: "POST",
 		url: "/Home/UpdateFields/",
 		datatype: "json",
-		contentType: "application/json: charset=utf-8",
+		contentType: "application/json; charset=utf-8",
 		data: JSON.stringify({ FirstName: FirstName, LastName: LastName, Mobno: Mobno, Adress: Adress, id: id }),
 		success: function (json1) {
 			ViewData1();
